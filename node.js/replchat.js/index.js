@@ -3,7 +3,6 @@ const io = require('socket.io-client')
 
 module.exports = class Client {
   constructor(username, beta = false) {
-    super()
     this.socket = {}
     this.username = username
     this.useBeta = beta
