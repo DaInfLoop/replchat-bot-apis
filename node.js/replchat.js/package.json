@@ -1,0 +1,15 @@
+{
+  "name": "replchat.js",
+  "version": "1.0.0",
+  "description": "An API for replchat built in Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "keywords": ["websockets", "socket.io", "replchat"],
+  "author": "DaInfLoop",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.4.1"
+  }
+}
