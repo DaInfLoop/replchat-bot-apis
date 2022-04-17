@@ -1,13 +1,41 @@
 // A library for replchat (https://replchat.vapwastaken.repl.co/)
 const io = require('socket.io-client')
-const { EventEmitter } = require('events')
 
-module.exports = class Client extends EventEmitter {
+module.exports = class Client {
   constructor(username, beta = false) {
     super()
     this.socket = {}
     this.username = username
     this.useBeta = beta
+    
+    this._events = {}
+  }
+  on(ev, callback) {
+    if (ev in this._events) {
+      this._events[ev].push({ callback, once: false })
+    } else {
+      this._events[ev] = [{ callback, once: false }]
+    }
+    return this
+  }
+  once(ev, callback) {
+    if (ev in this._events) {
+      this._events[ev].push({ callback, once: true })
+    } else {
+      this._events[ev] = [{ callback, once: true }]
+    }
+    return this
+  }
+  emit(ev, ...args) {
+    if (ev in this._events) {
+      this._events[ev].forEach(({ callback, once }, i) => {
+        callback(...args)
+        if (once) this._events[ev].splice(i, 1)
+      })
+      return true
+    } else {
+      return false
+    }
   }
   sendMessage(message) {
     this.socket.emit('chat message', { message })
