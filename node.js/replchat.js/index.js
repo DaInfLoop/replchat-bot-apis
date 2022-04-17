@@ -92,6 +92,7 @@ module.exports = class Client {
     })
   }
   joinRoom(room) {
+    process.emitWarning("Client#joinRoom is experimental and may change in the future. Reason: Rooms are new in replchat and may be removed or changed.", "ExperimentalWarning")
     this.socket.emit('joinRoom', room)
     return {
       name: room,
@@ -104,6 +105,7 @@ module.exports = class Client {
     }
   }
   sendRoomMessage(room, message) {
+    process.emitWarning("Client#sendRoomMessage is experimental and may change in the future. Reason: Rooms are new in replchat and may be removed or changed.", "ExperimentalWarning")
     this.socket.emit('chat message', {
       message,
       room
